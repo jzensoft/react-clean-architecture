@@ -33,7 +33,11 @@ const photoSlice = createSlice({
         })
         buidler.addCase(getPhotoData.fulfilled, (state, action) => {
             state.isLoading = false
-            state.data = action.payload
+            if (action.payload.isSuccess) {
+                state.data = action.payload.data!
+            } else {
+                state.error = action.payload.error!
+            }
         })
         buidler.addCase(getPhotoData.rejected, (state, action) => {
             state.isLoading = false
